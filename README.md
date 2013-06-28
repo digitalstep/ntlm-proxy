@@ -4,7 +4,7 @@ A very simple proxy server, written in Java.
 
 I created this little proxy in order to get Maven working behind an annoying corporate firewall.
 
-[Download Binary](/digitalstep/ntlm-proxy/wiki/ntlm-proxy-0.1.0.jar)
+Download binary from the wiki page.
 
 Usage: java -jar ntlm-proxy-0.1.0.jar 1234
 
