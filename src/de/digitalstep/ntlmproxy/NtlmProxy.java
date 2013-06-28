@@ -24,9 +24,9 @@ import com.google.common.io.ByteStreams;
 
 import de.compeople.commons.net.proxy.CompoundProxySelectorFactory;
 
-public class Main {
+public class NtlmProxy {
 
-    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+    private static final Logger logger = LoggerFactory.getLogger(NtlmProxy.class);
     private static final ExecutorService EXECUTOR = newCachedThreadPool();
 
     private static final List<String> stripHeadersIn = Arrays.asList("Content-Type", "Content-Length", "Proxy-Connection");
