@@ -39,7 +39,6 @@ public class NtlmProxy {
             this.socket = socket;
         }
 
-        @Override
         public void run() {
             HttpParser parser = null;
             try {
