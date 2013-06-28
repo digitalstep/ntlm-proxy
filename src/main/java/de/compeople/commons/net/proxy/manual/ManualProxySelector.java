@@ -17,19 +17,22 @@ import java.net.SocketAddress;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.compeople.commons.net.proxy.util.ProxySelectorUtils;
 
 /**
- * A proxy selector for a ´manual´ specified proxy.
+ * A proxy selector for a ï¿½manualï¿½ specified proxy.
  */
 public class ManualProxySelector extends ProxySelector {
+
+    private static final Logger log = LoggerFactory.getLogger(ManualProxySelector.class);
 
 	private List<Proxy> universalProxies;
 	private Map<String, List<Proxy>> protocolSpecificProxies;
 
-	private static final Logger LOGGER = Logger.getLogger( ManualProxySelector.class.getName() );
 
 	/**
 	 * Create a manual proxy selector returning a DIRECT proxy.
@@ -41,7 +44,7 @@ public class ManualProxySelector extends ProxySelector {
 
 	/**
 	 * Create a manual proxy selector with the given universal proxies.
-	 * 
+	 *
 	 * @param universalProxies
 	 */
 	public ManualProxySelector( List<Proxy> universalProxies ) {
@@ -51,7 +54,7 @@ public class ManualProxySelector extends ProxySelector {
 
 	/**
 	 * Create a manual proxy selector with the given protocol specific proxies.
-	 * 
+	 *
 	 * @param protocolSpecificProxies
 	 */
 	public ManualProxySelector( Map<String, List<Proxy>> protocolSpecificProxies ) {
@@ -61,7 +64,7 @@ public class ManualProxySelector extends ProxySelector {
 
 	/**
 	 * Create a manual proxy selector with the given univeral and protocol specific proxies.
-	 * 
+	 *
 	 * @param universalProxies
 	 * @param protocolSpecificProxies
 	 */
@@ -91,7 +94,7 @@ public class ManualProxySelector extends ProxySelector {
 	@Override
 	public void connectFailed( URI uri, SocketAddress sa, IOException ioe ) {
 		// nothing to do!
-		LOGGER.warning( "Could not connect to '" + uri + "' via proxy '" + sa + "' because of error '" + ioe + "'." );
+		log.warn( "Could not connect to '" + uri + "' via proxy '" + sa + "' because of error '" + ioe + "'." );
 	}
 
 	/**
