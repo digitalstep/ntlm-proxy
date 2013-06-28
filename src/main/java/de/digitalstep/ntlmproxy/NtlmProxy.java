@@ -94,8 +94,7 @@ public class NtlmProxy {
         URI uri = new URI(location);
         List<Proxy> proxies = CompoundProxySelectorFactory.getProxySelector().select(uri);
         for (Proxy proxy : proxies) {
-            System.out.println("proxy: " + proxy);
-
+            logger.debug("Found proxy for {}: {}", uri, proxy);
             InetSocketAddress addr = (InetSocketAddress) proxy.address();
             if (addr != null) {
                 System.setProperty("http.proxyHost", addr.getHostName());
