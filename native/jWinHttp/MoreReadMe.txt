@@ -1,0 +1,1 @@
+This project uses the freeware MS Visual Studio 2008 C++ Express.
