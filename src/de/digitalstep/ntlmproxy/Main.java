@@ -12,6 +12,7 @@ import java.net.Proxy;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -50,8 +51,7 @@ public class Main {
                     logger.warn(e.getMessage(), e);
                     return;
                 }
-                URI uri = new URI(parser.getUri());
-                enableSystemProxy(uri);
+                URI uri = enableSystemProxy(parser.getUri());
                 HttpURLConnection connection = (HttpURLConnection) uri.toURL().openConnection();
                 connection.setRequestMethod(parser.getMethod());
                 connection.setInstanceFollowRedirects(false);
@@ -78,7 +78,7 @@ public class Main {
 
                 byte[] bytes = ByteStreams.toByteArray(in);
                 ByteStreams.copy(new ByteArrayInputStream(bytes), out);
-                out.write("\r\n".getBytes());
+//                out.write("\r\n".getBytes());
                 parser.close();
                 in.close();
                 out.close();
@@ -90,7 +90,9 @@ public class Main {
         }
     }
 
-    private static void enableSystemProxy(final URI uri) {
+    private static URI enableSystemProxy(final String location) throws URISyntaxException {
+        logger.debug(location.toString());
+        URI uri = new URI(location);
         List<Proxy> proxies = CompoundProxySelectorFactory.getProxySelector().select(uri);
         for (Proxy proxy : proxies) {
             System.out.println("proxy: " + proxy);
@@ -101,6 +103,7 @@ public class Main {
                 System.setProperty("http.proxyPort", Integer.toString(addr.getPort()));
             }
         }
+        return uri;
     }
 
     public static void main(String[] args) throws Exception {

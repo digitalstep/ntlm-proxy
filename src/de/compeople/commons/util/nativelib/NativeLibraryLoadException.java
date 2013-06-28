@@ -15,30 +15,30 @@ package de.compeople.commons.util.nativelib;
  */
 public class NativeLibraryLoadException extends Exception {
 
-	private NativeLibraryLoadException() {
-		super();
-	}
+    private NativeLibraryLoadException() {
+        super();
+    }
 
-	/**
-	 * @param message
-	 * @param cause
-	 */
-	public NativeLibraryLoadException( String message, Throwable cause ) {
-		super( message, cause );
-	}
+    /**
+     * @param message
+     * @param cause
+     */
+    public NativeLibraryLoadException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
-	/**
-	 * @param message
-	 */
-	public NativeLibraryLoadException( String message ) {
-		super( message );
-	}
+    /**
+     * @param message
+     */
+    public NativeLibraryLoadException(String message) {
+        super(message);
+    }
 
-	/**
-	 * @param cause
-	 */
-	public NativeLibraryLoadException( Throwable cause ) {
-		super( cause );
-	}
+    /**
+     * @param cause
+     */
+    public NativeLibraryLoadException(Throwable cause) {
+        super(cause);
+    }
 
 }
