@@ -11,7 +11,9 @@
 package de.compeople.commons.net.proxy;
 
 import java.io.File;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.compeople.commons.net.proxy.manual.ManualProxySelectorProvider;
 import de.compeople.commons.net.proxy.win32.WinProxySelectorProvider;
@@ -21,11 +23,12 @@ import de.compeople.commons.net.proxy.win32.WinProxySelectorProvider;
  */
 public class CompoundProxySelectorFactory {
 
-	private static final Logger LOGGER = Logger.getLogger( CompoundProxySelectorFactory.class.getName() );
+
+    private static final Logger log = LoggerFactory.getLogger(CompoundProxySelectorFactory.class);
 
 	/**
 	 * Get the os/os-version dependend delegating proxy selector.
-	 * 
+	 *
 	 * @return
 	 * @throws IllegalStateException if no selector is available or selector instantiation failed.
 	 */
@@ -41,7 +44,7 @@ public class CompoundProxySelectorFactory {
 			WinProxySelectorProvider.appendTo( compoundProxySelector );
 		} else {
 			String os = System.getProperty( "os.name" ) + " " + System.getProperty( "os.version" );
-			LOGGER.warning( "There is no special proxy selector for the current operating system '" + os + "'." );
+			log.warn( "There is no special proxy selector for the current operating system '" + os + "'." );
 		}
 
 		return compoundProxySelector;

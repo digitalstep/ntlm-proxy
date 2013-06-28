@@ -15,8 +15,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.compeople.commons.net.proxy.CompoundProxySelector;
 import de.compeople.commons.net.proxy.util.ProxySelectorUtils;
@@ -29,7 +30,7 @@ public final class ManualProxySelectorProvider {
 
 	/**
 	 * If the value of manual proxy settings property is DIRECT than the
-	 * manual proxy selector will select no proxy! 
+	 * manual proxy selector will select no proxy!
 	 */
 	public static final String DIRECT = "DIRECT";
 
@@ -38,11 +39,12 @@ public final class ManualProxySelectorProvider {
 	 */
 	public final static String MANUAL_PROXY_SETTINGS_PROPERTY = "commons.proxy";
 
-	private static final Logger LOGGER = Logger.getLogger( ManualProxySelectorProvider.class.getName() );
+
+    private static final Logger log = LoggerFactory.getLogger(ManualProxySelectorProvider.class);
 
 	/**
 	 * Append a manual proxy selector to the CompoundProxySelector
-	 * 
+	 *
 	 * @param compoundProxySelector
 	 */
 	public static void appendTo( CompoundProxySelector compoundProxySelector ) {
@@ -52,7 +54,7 @@ public final class ManualProxySelectorProvider {
 			Map<String, List<Proxy>> protocolSpecificProxies = new HashMap<String, List<Proxy>>();
 
 			if ( !proxyList.equalsIgnoreCase( DIRECT ) ) {
-				// if not ´direct´ requested fill the list from the spec.
+				// if not ï¿½directï¿½ requested fill the list from the spec.
 				ProxySelectorUtils.fillProxyLists( proxyList, universalProxies, protocolSpecificProxies );
 			}
 
@@ -60,9 +62,7 @@ public final class ManualProxySelectorProvider {
 
 			compoundProxySelector.addOrReplace( 100, manualProxySelector );
 		} else {
-			if ( LOGGER.getLevel() == Level.FINEST ) {
-				LOGGER.log( Level.FINEST, "No manual proxy (-D" + MANUAL_PROXY_SETTINGS_PROPERTY + "=... )selector requested." );
-			}
+				log.debug("No manual proxy (-D{}=... )selector requested.", MANUAL_PROXY_SETTINGS_PROPERTY);
 		}
 	}
 }

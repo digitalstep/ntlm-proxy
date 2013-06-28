@@ -13,11 +13,8 @@ package de.compeople.commons.util.nativelib;
 /**
  * Indicates an error loading a native library.
  */
+@SuppressWarnings("serial")
 public class NativeLibraryLoadException extends Exception {
-
-    private NativeLibraryLoadException() {
-        super();
-    }
 
     /**
      * @param message
