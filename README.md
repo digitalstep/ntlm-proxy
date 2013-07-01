@@ -21,18 +21,18 @@ Download binary from the wiki page.
 the 1234 is the port the proxy server ist listening on. Just change it to your like.
 
 For use with Maven, just add the following proxy configuration to your settings.xml:
-
-	<settings>
-	  <proxies>
-	   <proxy>
-	      <active>true</active>
-	      <protocol>http</protocol>
-	      <host>127.0.0.1</host>
-	      <port>1234</port>
-	    </proxy>
-	  </proxies>
-	</settings>
-
+```xml
+<settings>
+  <proxies>
+   <proxy>
+      <active>true</active>
+      <protocol>http</protocol>
+      <host>127.0.0.1</host>
+      <port>1234</port>
+    </proxy>
+  </proxies>
+</settings>
+```
 Again, change the port number as you like, but it must ,of course, match the port number your local proxy is running on.
 
 ## See Also ##
