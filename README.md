@@ -16,5 +16,5 @@ Based on code an information found in
 * https://bugs.eclipse.org/bugs/show_bug.cgi?id=180921
 * http://java-ntlm-proxy.sourceforge.net/
 
-[cntlm] http://cntlm.sourceforge.net/
-[ntlmaps] http://ntlmaps.sourceforge.net/
+[cntlm]: http://cntlm.sourceforge.net/
+[ntlmaps]: http://ntlmaps.sourceforge.net/
