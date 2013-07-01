@@ -31,7 +31,7 @@ For use with Maven, just add the following proxy configuration to your settings.
 	  </proxies>
 	</settings>
 
-Again, change the port number as you like, but it must ,of course, match the port number, your local proxy is running on.
+Again, change the port number as you like, but it must ,of course, match the port number your local proxy is running on.
 
 Based on code an information found in
 * https://bugs.eclipse.org/bugs/show_bug.cgi?id=180921
