@@ -16,6 +16,17 @@
 		<maven.compiler.target>1.6</maven.compiler.target>
 	</properties>
 
+	<repositories>
+		<repository>
+			<id>central</id>
+			<url>http://repo1.maven.org/maven2/</url>
+		</repository>
+		<repository>
+			<id>big-bee</id>
+			<url>http://www.bigbeeconsultants.co.uk/repo</url>
+		</repository>
+	</repositories>
+
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<testSourceDirectory>src/test/java</testSourceDirectory>
@@ -64,6 +75,11 @@
 	</build>
 
 	<dependencies>
+		<dependency>
+			<groupId>uk.co.bigbeeconsultants</groupId>
+			<artifactId>bee-client_2.10</artifactId>
+			<version>0.21.3</version>
+		</dependency>
 		<dependency>
 			<groupId>org.scala-lang</groupId>
 			<artifactId>scala-library</artifactId>
