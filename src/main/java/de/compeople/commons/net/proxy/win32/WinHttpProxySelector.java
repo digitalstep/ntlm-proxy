@@ -32,7 +32,7 @@ import de.compeople.commons.util.StringUtils;
 import de.compeople.commons.util.nativelib.NativeLibraryLoadException;
 
 /**
- * ProxySelector that gets its settings from the "internet options >> connection settings" 
+ * ProxySelector that gets its settings from the "internet options >> connection settings"
  */
 public class WinHttpProxySelector extends ProxySelector {
 
@@ -63,7 +63,7 @@ public class WinHttpProxySelector extends ProxySelector {
 			return ProxySelectorUtils.getEmptyProxyList();
 		}
 
-		// Let´s see if we are still up-to-date.
+		// Let's see if we are still up-to-date.
 		boolean proxyConfigChanged = !newProxyConfig.equals( proxyConfig );
 		if ( proxyConfigChanged ) {
 			LOGGER.finest( "Initializing." );
@@ -78,7 +78,7 @@ public class WinHttpProxySelector extends ProxySelector {
 
 		// Explicit proxies defined?
 		if ( StringUtils.isGiven( proxyConfig.getProxy() ) ) {
-			// Yes, let´s see if we are still up-to-date or not yet initialized.
+			// Yes, let's see if we are still up-to-date or not yet initialized.
 			if ( proxyConfigChanged || winHttpConfig == null ) {
 				winHttpConfig = new WinHttpConfig( proxyConfig );
 			}

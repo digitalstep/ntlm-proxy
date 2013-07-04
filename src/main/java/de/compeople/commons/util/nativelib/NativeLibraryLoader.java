@@ -34,8 +34,8 @@ import de.compeople.commons.util.StringUtils;
  * <li>try a System.loadLibray() with the library name</li>
  * <li>try to locate the requested library from the native library search path specified with
  *     <code>addNativePaths()</code> and or <code>addNativePath()</code></li>
- * <li>try to extract an ´embedded´ native library (stored within a jar) into a temporary location and
- *     load this copy. The temporary copy/ies will be deleted when the jvm exits.</li>    
+ * <li>try to extract an 'embedded' native library (stored within a jar) into a temporary location and
+ *     load this copy. The temporary copy/ies will be deleted when the jvm exits.</li>
  * </ol>
  */
 public final class NativeLibraryLoader {
@@ -57,16 +57,16 @@ public final class NativeLibraryLoader {
 
 		NativeLibraryLoader.CleanupThread cleaner = new NativeLibraryLoader.CleanupThread();
 
-		// cleanup before (find bugs: yes, this is intended - the cleaner should just run here sequentially) 
+		// cleanup before (find bugs: yes, this is intended - the cleaner should just run here sequentially)
 		cleaner.run();
 
-		// clean after by installing a shutdown hook 
+		// clean after by installing a shutdown hook
 		Runtime.getRuntime().addShutdownHook( cleaner );
 	}
 
 	/**
 	 * Add a semicolon ";" separated list of path names to the native library search path.
-	 * 
+	 *
 	 * @param paths
 	 */
 	public synchronized static void addNativePaths( String paths ) {
@@ -83,7 +83,7 @@ public final class NativeLibraryLoader {
 
 	/**
 	 * Add a single path name to the native libary search path.
-	 * 
+	 *
 	 * @param path
 	 */
 	public synchronized static void addNativePath( String path ) {
@@ -94,9 +94,9 @@ public final class NativeLibraryLoader {
 
 	/**
 	 * Try to load the specified library.
-	 * 
+	 *
 	 * @param libraryName the name of the library (without extension)
-	 * @param baseForResource the class which is used as reference for loading the resource of the library 
+	 * @param baseForResource the class which is used as reference for loading the resource of the library
 	 * @param resourceName the resource name of the library
 	 * @return the file path of the library if it has been extracted into a temporary location
 	 *         otherwise null.
@@ -171,7 +171,7 @@ public final class NativeLibraryLoader {
 
 	/**
 	 * Get the prefix and suffix for this resource name.
-	 * 
+	 *
 	 * @param resourceName
 	 * @return prefix and suffix within the string array
 	 */
@@ -206,7 +206,7 @@ public final class NativeLibraryLoader {
 
 	/**
 	 * Unit test helper!
-	 * 
+	 *
 	 * @return
 	 */
 	static List<String> getNativePaths() {
@@ -214,7 +214,7 @@ public final class NativeLibraryLoader {
 	}
 
 	/**
-	 * Remove as much temporary libraries as possible! 
+	 * Remove as much temporary libraries as possible!
 	 */
 	private static class CleanupThread extends Thread {
 

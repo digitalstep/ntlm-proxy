@@ -11,7 +11,7 @@
 package de.compeople.commons.util;
 
 /**
- * Collection of String/CharSequence utilities. 
+ * Collection of String/CharSequence utilities.
  */
 public final class StringUtils {
 
@@ -20,9 +20,9 @@ public final class StringUtils {
 	}
 
 	/**
-	 * Tests ´simple´ emptiness.
+	 * Tests 'simple' emptiness.
 	 * A character sequence is empty either if it is null or it has a zero length.
-	 * 
+	 *
 	 * @param sequence
 	 * @return
 	 */
@@ -33,7 +33,7 @@ public final class StringUtils {
 	/**
 	 * Tests whether the char sequence has content.
 	 * A character sequence is given either if it is not null and it has a none zero length.
-	 * 
+	 *
 	 * @param sequence
 	 * @return
 	 */
@@ -42,9 +42,9 @@ public final class StringUtils {
 	}
 
 	/**
-	 * Tests ´deep´ emptiness.
+	 * Tests 'deep' emptiness.
 	 * A string is empty if it is either null or its trimmed version has a zero length.
-	 * 
+	 *
 	 * @param string
 	 * @return
 	 */
@@ -54,7 +54,7 @@ public final class StringUtils {
 
 	/**
 	 * Tests equality of the given strings.
-	 * 
+	 *
 	 * @param sequence1 candidate 1, may be null
 	 * @param sequence2 candidate 2, may be null
 	 * @return
