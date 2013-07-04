@@ -2,4 +2,5 @@
 /lib
 /target
 /dependency-reduced-pom.xml
-src/main/resources/logback-test.xml
+/src/main/resources/logback-test.xml
+/.cache
