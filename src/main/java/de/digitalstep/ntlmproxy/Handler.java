@@ -5,8 +5,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 import java.net.Socket;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,6 +17,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.io.ByteStreams;
+
+import de.compeople.commons.net.proxy.CompoundProxySelectorFactory;
 
 class Handler implements Runnable {
 
@@ -39,7 +44,7 @@ class Handler implements Runnable {
                 log.warn(e.getMessage(), e);
                 return;
             }
-            URI uri = NtlmProxy.enableSystemProxy(parser.getUri());
+            URI uri = enableSystemProxy(parser.getUri());
             HttpURLConnection connection = (HttpURLConnection) uri.toURL().openConnection();
             connection.setRequestMethod(parser.getMethod());
             connection.setInstanceFollowRedirects(false);
@@ -75,5 +80,21 @@ class Handler implements Runnable {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    static URI enableSystemProxy(final String location) throws URISyntaxException {
+        log.debug(location.toString());
+        URI uri = new URI(location);
+        Proxy proxy = CompoundProxySelectorFactory.getProxySelector().select(uri).get(0);
+        log.debug("Found proxy for {}: {}", uri, proxy);
+        InetSocketAddress addr = (InetSocketAddress) proxy.address();
+        if (addr == null) {
+            System.setProperty("http.proxyHost", "");
+            System.setProperty("http.proxyPort", "");
+        } else {
+            System.setProperty("http.proxyHost", addr.getHostName());
+            System.setProperty("http.proxyPort", Integer.toString(addr.getPort()));
+        }
+        return uri;
     }
 }
