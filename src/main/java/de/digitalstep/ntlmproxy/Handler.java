@@ -16,6 +16,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Optional;
 import com.google.common.io.ByteStreams;
 
 import de.compeople.commons.net.proxy.CompoundProxySelectorFactory;
@@ -29,8 +30,11 @@ class Handler implements Runnable {
 
     private final Socket socket;
 
-    public Handler(Socket socket) {
+    private HandlerListener listener;
+
+    public Handler(Socket socket, Optional<HandlerListener> listener) {
         this.socket = socket;
+        this.listener = listener.isPresent() ? listener.get() : new HandlerListener();
     }
 
     public void run() {
@@ -82,11 +86,10 @@ class Handler implements Runnable {
         }
     }
 
-    static URI enableSystemProxy(final String location) throws URISyntaxException {
-        log.debug(location.toString());
+    private URI enableSystemProxy(final String location) throws URISyntaxException {
         URI uri = new URI(location);
         Proxy proxy = CompoundProxySelectorFactory.getProxySelector().select(uri).get(0);
-        log.debug("Found proxy for {}: {}", uri, proxy);
+        listener.onGet(uri, proxy);
         InetSocketAddress addr = (InetSocketAddress) proxy.address();
         if (addr == null) {
             System.setProperty("http.proxyHost", "");

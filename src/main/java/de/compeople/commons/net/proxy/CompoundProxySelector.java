@@ -117,8 +117,6 @@ public class CompoundProxySelector extends ProxySelector {
             proxies.add(Proxy.NO_PROXY);
         }
 
-        log.info("Connecting URL '{}' using proxylist '{}'.", uri, proxies);
-
         return proxies;
     }
 
