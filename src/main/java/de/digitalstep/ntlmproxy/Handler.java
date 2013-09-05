@@ -1,6 +1,7 @@
 package de.digitalstep.ntlmproxy;
 
 import java.io.ByteArrayInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -61,6 +62,14 @@ class Handler implements Runnable {
             socket.shutdownInput();
 
             final OutputStream out = socket.getOutputStream();
+
+            switch (connection.getResponseCode()) {
+            case 404:
+                out.write("HTTP/1.0 404 Not Found\r\n".getBytes());
+                out.close();
+                return;
+            }
+
             for (int index = 0; index < 1; index++) {
                 NameValuePair header = new NameValuePair(connection.getHeaderFieldKey(index), connection.getHeaderField(index));
                 if (!stripHeadersOut.contains(header.getName())) {
@@ -68,6 +77,7 @@ class Handler implements Runnable {
                     log.debug("Wrote header {}", header);
                 }
             }
+
             out.write("Gunnar: Test\r\n".getBytes());
 
             final InputStream in = connection.getInputStream();
@@ -81,8 +91,8 @@ class Handler implements Runnable {
             out.close();
             log.debug("Output closed");
             connection.disconnect();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
         }
     }
 
