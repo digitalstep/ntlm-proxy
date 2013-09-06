@@ -5,7 +5,7 @@
 	<groupId>de.digitalstep.ntlmproxy</groupId>
 	<artifactId>ntlm-proxy</artifactId>
 	<packaging>jar</packaging>
-	<version>0.3.1-SNAPSHOT</version>
+	<version>0.3.2-SNAPSHOT</version>
 	<name>NTLM Proxy</name>
 	<url>http://github.com/digitalstep/ntlm-proxy</url>
 
@@ -30,27 +30,33 @@
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<testSourceDirectory>src/test/java</testSourceDirectory>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 		<plugins>
-<!-- 			<plugin> -->
-<!-- 				<groupId>net.alchim31.maven</groupId> -->
-<!-- 				<artifactId>scala-maven-plugin</artifactId> -->
-<!-- 				<version>3.1.5</version> -->
-<!-- 				<executions> -->
-<!-- 					<execution> -->
-<!-- 						<goals> -->
-<!-- 							<goal>compile</goal> -->
-<!-- 							<goal>testCompile</goal> -->
-<!-- 						</goals> -->
-<!-- 						<configuration> -->
-<!-- 							<args> -->
-<!-- 								<arg>-make:transitive</arg> -->
-<!-- 								<arg>-dependencyfile</arg> -->
-<!-- 								<arg>${project.build.directory}/.scala_dependencies</arg> -->
-<!-- 							</args> -->
-<!-- 						</configuration> -->
-<!-- 					</execution> -->
-<!-- 				</executions> -->
-<!-- 			</plugin> -->
+			<!-- <plugin> -->
+			<!-- <groupId>net.alchim31.maven</groupId> -->
+			<!-- <artifactId>scala-maven-plugin</artifactId> -->
+			<!-- <version>3.1.5</version> -->
+			<!-- <executions> -->
+			<!-- <execution> -->
+			<!-- <goals> -->
+			<!-- <goal>compile</goal> -->
+			<!-- <goal>testCompile</goal> -->
+			<!-- </goals> -->
+			<!-- <configuration> -->
+			<!-- <args> -->
+			<!-- <arg>-make:transitive</arg> -->
+			<!-- <arg>-dependencyfile</arg> -->
+			<!-- <arg>${project.build.directory}/.scala_dependencies</arg> -->
+			<!-- </args> -->
+			<!-- </configuration> -->
+			<!-- </execution> -->
+			<!-- </executions> -->
+			<!-- </plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>

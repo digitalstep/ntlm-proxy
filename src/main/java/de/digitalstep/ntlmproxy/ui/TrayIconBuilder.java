@@ -35,7 +35,9 @@ package de.digitalstep.ntlmproxy.ui;
  * TrayIconDemo.java
  */
 
+import static de.digitalstep.ntlmproxy.ui.ApplicationProperties.applicationProperties;
 import static java.lang.Boolean.FALSE;
+import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 
 import java.awt.AWTException;
 import java.awt.MenuItem;
@@ -49,6 +51,7 @@ import java.net.Proxy;
 import java.net.URI;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
@@ -100,7 +103,7 @@ public class TrayIconBuilder {
                 log.info("UI initialized. All log output sent to UI window");
             }
         });
-        return Optional.<HandlerListener>of(new HandlerListener() {
+        return Optional.<HandlerListener> of(new HandlerListener() {
             @Override
             protected void onGet(URI uri, Proxy proxy) {
                 super.onGet(uri, proxy);
@@ -120,6 +123,7 @@ public class TrayIconBuilder {
         };
         popup.add(showLog(listener));
         popup.addSeparator();
+        popup.add(aboutItem());
         popup.add(exitItem());
 
         final TrayIcon trayIcon = new TrayIcon((new ImageIcon(getClass().getResource("/tray.png"), "tray icon")).getImage());
@@ -133,6 +137,19 @@ public class TrayIconBuilder {
     private MenuItem showLog(final ActionListener listener) {
         final MenuItem menuItem = new MenuItem("Show Log");
         menuItem.addActionListener(listener);
+        return menuItem;
+    }
+
+    private MenuItem aboutItem() {
+        MenuItem menuItem = new MenuItem("About");
+        menuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null,
+                        String.format("Version %s", applicationProperties().getApplicationVersion()),
+                        applicationProperties().getApplicationName(),
+                        INFORMATION_MESSAGE);
+            }
+        });
         return menuItem;
     }
 
