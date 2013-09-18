@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.digitalstep.ntlmproxy</groupId>
 	<artifactId>ntlm-proxy</artifactId>
 	<packaging>jar</packaging>
-	<version>0.3.2-SNAPSHOT</version>
+	<version>0.3.2</version>
 	<name>NTLM Proxy</name>
 	<url>http://github.com/digitalstep/ntlm-proxy</url>
 
@@ -26,6 +25,20 @@
 			<url>http://www.bigbeeconsultants.co.uk/repo</url>
 		</repository>
 	</repositories>
+
+	<scm>
+		<connection>scm:git:https://github.com/digitalstep/${project.artifactId}.git</connection>
+		<developerConnection>scm:git:git@github.com:digitalstep/${project.artifactId}.git</developerConnection>
+		<url>https://github.com/digitalstep/${project.artifactId}</url>
+		<tag>ntlm-proxy-0.3.2</tag>
+	</scm>
+
+	<distributionManagement>
+		<repository>
+			<id>bintray</id>
+			<url>https://api.bintray.com/maven/digitalstep/${project.artifactId}/package</url>
+		</repository>
+	</distributionManagement>
 
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
@@ -76,6 +89,15 @@
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.4.1</version>
+				<configuration>
+					<useReleaseProfile>false</useReleaseProfile>
+					<releaseProfiles>release</releaseProfiles>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -133,4 +155,37 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-source-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+	
 </project>
