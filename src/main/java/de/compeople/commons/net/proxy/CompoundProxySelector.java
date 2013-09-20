@@ -105,7 +105,12 @@ public class CompoundProxySelector extends ProxySelector {
         for (ProxySelector selector : proxySelectors.values()) {
             log.debug("Checking selector: {}", selector.toString());
 
-            List<Proxy> result = selector.select(uri);
+            List<Proxy> result;
+            if (uri.getScheme() == null || uri.getHost() == null) {
+                result = selector.select(URI.create("http://" + uri.toString()));
+            } else {
+                result = selector.select(uri);
+            }
             associateProxiesWithSelector(selector, result);
             if (!append(proxies, result)) {
                 log.debug("Skipping proxy selector '{}'.", selector);
