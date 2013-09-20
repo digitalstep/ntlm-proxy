@@ -21,52 +21,51 @@ import javax.swing.JEditorPane;
 import de.compeople.commons.net.proxy.CompoundProxySelector;
 import de.compeople.commons.net.proxy.CompoundProxySelectorFactory;
 import de.compeople.commons.net.winhttp.WinHttp;
-import de.compeople.commons.util.nativelib.NativeLibraryLoadException;
 
 /**
- * This little swing (!) app displays continously the html content of a web site.
- * While running changing of the internet options/connection settings
- * shows immediatly the effect of this changes. 
+ * This little swing (!) app displays continously the html content of a web
+ * site. While running changing of the internet options/connection settings
+ * shows immediatly the effect of this changes.
  */
 public class TestStuff {
 
-	/**
-	 * @param args
-	 * @throws NativeLibraryLoadException 
-	 * @throws DelegatingProxySelectorFactoryException 
-	 * @throws IOException 
-	 */
-	public static void main( String[] args ) throws NativeLibraryLoadException {
+    /**
+     * @param args
+     * @throws NativeLibraryLoadException
+     * @throws DelegatingProxySelectorFactoryException
+     * @throws IOException
+     */
+    public static void main(String[] args) {
 
-		WinHttp.initialize();
-		System.out.println( "---> " + WinHttp.getLastErrorMessage() );
+        WinHttp.initialize();
+        System.out.println("---> " + WinHttp.getLastErrorMessage());
 
-		CompoundProxySelector selector = CompoundProxySelectorFactory.getProxySelector();
-		selector.install();
-		Frame frame = new Frame();
-		frame.setLayout( new BorderLayout() );
-		JEditorPane pane = new JEditorPane();
-		frame.add( pane, BorderLayout.CENTER );
-		frame.pack();
-		frame.setVisible( true );
+        CompoundProxySelector selector = CompoundProxySelectorFactory.getProxySelector();
+        selector.install();
+        Frame frame = new Frame();
+        frame.setLayout(new BorderLayout());
+        JEditorPane pane = new JEditorPane();
+        frame.add(pane, BorderLayout.CENTER);
+        frame.pack();
+        frame.setVisible(true);
 
-		//		for ( int i = 0; i < 5; i++ ) {
-		int counter = 0;
-		while ( true ) {
-			try {
-				URL url = new URL( "http://www.nichts.de/" );
-				pane.setPage( url );
-				InputStream inputStream = url.openStream();
-				int c;
-				while ( ( c = inputStream.read() ) != -1 ) {
-					System.out.print( (char) c );
-				}
-				inputStream.close();
-				counter++;
-			} catch ( Throwable t ) {
-				System.err.println( "Oops (" + counter + "): " + t );
-			}
-		}
-	}
+        // for ( int i = 0; i < 5; i++ ) {
+        int counter = 0;
+        while (true) {
+            try {
+                URL url = new URL("http://www.nichts.de/");
+                pane.setPage(url);
+                InputStream inputStream = url.openStream();
+                int c;
+                while ((c = inputStream.read()) != -1) {
+                    System.out.print((char) c);
+                }
+                inputStream.close();
+                counter++;
+            } catch (Throwable t) {
+                System.err.println("Oops (" + counter + "): " + t);
+            }
+        }
+    }
 
 }

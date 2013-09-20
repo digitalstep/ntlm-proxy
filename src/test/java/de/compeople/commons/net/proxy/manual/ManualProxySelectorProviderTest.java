@@ -10,28 +10,28 @@
  *******************************************************************************/
 package de.compeople.commons.net.proxy.manual;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
-import junit.framework.TestCase;
+import org.junit.Before;
+
 import de.compeople.commons.net.proxy.CompoundProxySelector;
 
 /**
  * Nomen est omen!
  */
-public class ManualProxySelectorProviderTest extends TestCase {
+public class ManualProxySelectorProviderTest {
 
 	private CompoundProxySelector compoundProxySelector;
 
-	/**
-	 * @see junit.framework.TestCase#setUp()
-	 */
-	@Override
+	@Before
 	protected void setUp() throws Exception {
-		super.setUp();
 		compoundProxySelector = new CompoundProxySelector();
 	}
 

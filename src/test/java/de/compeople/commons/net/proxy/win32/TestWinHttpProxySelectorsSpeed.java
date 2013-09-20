@@ -14,39 +14,40 @@ import java.net.ProxySelector;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import junit.framework.TestCase;
-import de.compeople.commons.util.nativelib.NativeLibraryLoadException;
+import org.junit.Test;
 
 /**
  * Nomen est omen!
  */
-public class TestWinHttpProxySelectorsSpeed extends TestCase {
+public class TestWinHttpProxySelectorsSpeed {
 
-	private final static int LOOPS = 5;
+    private final static int LOOPS = 5;
 
-	/**
-	 * Nomen est omen!
-	 * @throws NativeLibraryLoadException 
-	 * @throws URISyntaxException 
-	 */
-	public void testWinHttpProxySelectorSpeed() throws NativeLibraryLoadException, URISyntaxException {
+    /**
+     * Nomen est omen!
+     * 
+     * @throws NativeLibraryLoadException
+     * @throws URISyntaxException
+     */
+    @Test
+    public void testWinHttpProxySelectorSpeed() throws URISyntaxException {
 
-		long begin, end, duration = 0;
-		ProxySelector proxySelector = new WinHttpProxySelector();
-		URI uri = new URI( "http://localhost" );
-		for ( int i = 0; i < LOOPS; i++ ) {
-			begin = System.nanoTime();//currentTimeMillis();
-			try {
-				proxySelector.select( uri );
-			} catch ( Exception e ) {
-				// :-(
-			}
-			end = System.nanoTime();//currentTimeMillis();
-			duration += end - begin;
-		}
+        long begin, end, duration = 0;
+        ProxySelector proxySelector = new WinHttpProxySelector();
+        URI uri = new URI("http://localhost");
+        for (int i = 0; i < LOOPS; i++) {
+            begin = System.nanoTime();// currentTimeMillis();
+            try {
+                proxySelector.select(uri);
+            } catch (Exception e) {
+                // :-(
+            }
+            end = System.nanoTime();// currentTimeMillis();
+            duration += end - begin;
+        }
 
-		System.out.println( "WinHttpProxySelector:" );
-		System.out.println( "Average time: " + (double) duration / (double) LOOPS + " nanos" );
-	}
+        System.out.println("WinHttpProxySelector:");
+        System.out.println("Average time: " + (double) duration / (double) LOOPS + " nanos");
+    }
 
 }

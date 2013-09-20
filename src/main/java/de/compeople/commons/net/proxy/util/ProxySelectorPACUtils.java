@@ -10,6 +10,8 @@
  *******************************************************************************/
 package de.compeople.commons.net.proxy.util;
 
+import static com.google.common.base.Strings.isNullOrEmpty;
+
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.SocketAddress;
@@ -20,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-import de.compeople.commons.util.StringUtils;
+import com.google.common.base.Strings;
 
 /**
  * Helper for PAC support
@@ -54,7 +56,7 @@ public final class ProxySelectorPACUtils {
 	 * @return
 	 */
 	public static List<Proxy> getProxies( String pacFindProxyForUrlResult ) {
-		if ( StringUtils.isDeepEmpty( pacFindProxyForUrlResult ) ) {
+		if ( Strings.nullToEmpty(pacFindProxyForUrlResult).trim().length() == 0 ) {
 			return ProxySelectorUtils.getProxyListDirectAccessOnly();
 		}
 
@@ -74,7 +76,7 @@ public final class ProxySelectorPACUtils {
 
 	private static Proxy getProxy( String pacProxy ) {
 
-		if ( StringUtils.isEmpty( pacProxy ) ) {
+		if ( isNullOrEmpty(pacProxy) ) {
 			return Proxy.NO_PROXY;
 		}
 

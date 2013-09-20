@@ -10,66 +10,68 @@
  *******************************************************************************/
 package de.compeople.commons.net.winhttp;
 
-import de.compeople.commons.util.StringUtils;
+import com.google.common.base.Objects;
 
 /**
  * Wrapper for Win32 WINHTTP_CURRENT_USER_IE_PROXY_CONFIG structure
  */
 public class WinHttpCurrentUserIEProxyConfig {
 
-	private boolean isAutoDetect;
-	private String autoConfigUrl;
-	private String proxy;
-	private String proxyBypass;
+    private boolean isAutoDetect;
+    private String autoConfigUrl;
+    private String proxy;
+    private String proxyBypass;
 
-	/**
-	 * @return the autoConfigUrl
-	 */
-	public String getAutoConfigUrl() {
-		return autoConfigUrl;
-	}
+    /**
+     * @return the autoConfigUrl
+     */
+    public String getAutoConfigUrl() {
+        return autoConfigUrl;
+    }
 
-	/**
-	 * @return the isAutoDetect
-	 */
-	public boolean isAutoDetect() {
-		return isAutoDetect;
-	}
+    /**
+     * @return the isAutoDetect
+     */
+    public boolean isAutoDetect() {
+        return isAutoDetect;
+    }
 
-	/**
-	 * @return the proxy
-	 */
-	public String getProxy() {
-		return proxy;
-	}
+    /**
+     * @return the proxy
+     */
+    public String getProxy() {
+        return proxy;
+    }
 
-	/**
-	 * @return the proxyBypass
-	 */
-	public String getProxyBypass() {
-		return proxyBypass;
-	}
+    /**
+     * @return the proxyBypass
+     */
+    public String getProxyBypass() {
+        return proxyBypass;
+    }
 
-	/**
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals( Object obj ) {
-		if ( obj instanceof WinHttpCurrentUserIEProxyConfig ) {
-			WinHttpCurrentUserIEProxyConfig that = (WinHttpCurrentUserIEProxyConfig) obj;
-			return ( this.isAutoDetect == that.isAutoDetect ) && StringUtils.equals( this.autoConfigUrl, that.autoConfigUrl )
-				&& StringUtils.equals( this.proxy, that.proxy ) && StringUtils.equals( this.proxyBypass, that.proxyBypass );
-		}
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof WinHttpCurrentUserIEProxyConfig) {
+            WinHttpCurrentUserIEProxyConfig that = (WinHttpCurrentUserIEProxyConfig) obj;
+            return (this.isAutoDetect == that.isAutoDetect)
+                    && Objects.equal(this.autoConfigUrl, that.autoConfigUrl)
+                    && Objects.equal(this.proxy, that.proxy) 
+                    && Objects.equal(this.proxyBypass, that.proxyBypass);
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	/**
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		return ( autoConfigUrl + proxy ).hashCode();
-	}
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        return (autoConfigUrl + proxy).hashCode();
+    }
 
 }

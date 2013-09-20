@@ -10,6 +10,8 @@
  *******************************************************************************/
 package de.compeople.commons.net.proxy.manual;
 
+import static org.junit.Assert.assertEquals;
+
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.URI;
@@ -19,12 +21,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import junit.framework.TestCase;
-
 /**
  * Nomen est omen!
  */
-public class ManualProxySelectorTest extends TestCase {
+public class ManualProxySelectorTest {
 
 	private Proxy proxy1 = new Proxy( Proxy.Type.HTTP, new InetSocketAddress( "test1", 8080 ) );
 	private Proxy proxy2 = new Proxy( Proxy.Type.HTTP, new InetSocketAddress( "test2", 8080 ) );

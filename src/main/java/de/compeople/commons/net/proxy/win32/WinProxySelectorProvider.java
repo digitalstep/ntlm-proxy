@@ -16,7 +16,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.compeople.commons.net.proxy.CompoundProxySelector;
-import de.compeople.commons.util.nativelib.NativeLibraryLoadException;
 
 /**
  * Populate all possible win proxy selectors.
@@ -32,21 +31,14 @@ public final class WinProxySelectorProvider {
     /**
      * Populate the windows specific proxy selectors to the given delegating
      * proxy selector.
-     *
+     * 
      * @param compoundProxySelector
      * @return true, if there was somthing to append, otherwise false
      */
     public static boolean appendTo(CompoundProxySelector compoundProxySelector) {
-        ProxySelector proxySelector;
-        try {
-            proxySelector = new WinHttpProxySelector();
-            compoundProxySelector.addOrReplace(1000, proxySelector);
-
-            return true;
-        } catch (NativeLibraryLoadException nlle) {
-            log.warn("Could not load required native library.", nlle);
-            return false;
-        }
+        ProxySelector proxySelector = new WinHttpProxySelector();
+        compoundProxySelector.addOrReplace(1000, proxySelector);
+        return true;
     }
 
 }

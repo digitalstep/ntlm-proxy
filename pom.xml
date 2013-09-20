@@ -4,7 +4,7 @@
 	<groupId>de.digitalstep.ntlmproxy</groupId>
 	<artifactId>ntlm-proxy</artifactId>
 	<packaging>jar</packaging>
-	<version>0.3.2</version>
+	<version>0.4.0-SNAPSHOT</version>
 	<name>NTLM Proxy</name>
 	<url>http://github.com/digitalstep/ntlm-proxy</url>
 
@@ -44,6 +44,10 @@
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<testSourceDirectory>src/test/java</testSourceDirectory>
 		<resources>
+			<resource>
+				<directory>src/main/native</directory>
+				<filtering>false</filtering>
+			</resource>
 			<resource>
 				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
