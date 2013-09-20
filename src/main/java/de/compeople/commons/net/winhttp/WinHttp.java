@@ -16,7 +16,7 @@ import de.digitalstep.ntlmproxy.nativelib.NativeLibrary;
  * This is the Win32 WinHttp wrapper. (Not yet complete, but offers what we
  * currently need!)
  */
-public final class WinHttp {
+public final class WinHttp extends NativeLibrary {
 
     /**
      * WinHttpOpen prettifiers for optional proxy name parameter
@@ -28,11 +28,18 @@ public final class WinHttp {
      */
     public static final String NO_PROXY_BYPASS = null;
 
+    private WinHttp() {
+        super("/jWinHttp.dll");
+    }
+
     /**
      * Initialize the wrapper.
+     * @return 
      */
-    public static void initialize() {
-        NativeLibrary.load("/jWinHttp.dll");
+    public static WinHttp initialize() {
+        WinHttp winHttp = new WinHttp();
+        winHttp.load();
+        return winHttp;
     }
 
     /**

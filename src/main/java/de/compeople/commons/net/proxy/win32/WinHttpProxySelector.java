@@ -36,6 +36,9 @@ import de.compeople.commons.net.winhttp.WinHttpProxyInfo;
  * "internet options >> connection settings"
  */
 public class WinHttpProxySelector extends ProxySelector {
+    
+    @SuppressWarnings("unused")
+    private static final WinHttp WIN_HTTP = WinHttp.initialize();
 
     private WinHttpCurrentUserIEProxyConfig proxyConfig = null;
     private WinHttpConfig winHttpConfig;
@@ -52,7 +55,6 @@ public class WinHttpProxySelector extends ProxySelector {
      * Default constructor
      */
     public WinHttpProxySelector() {
-        WinHttp.initialize();
     }
 
     @Override

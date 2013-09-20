@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
  * Copies a dll from the jar to a settings directory and loads the native
  * library.
  */
-public final class NativeLibrary {
+public class NativeLibrary {
 
     private static Set<NativeLibrary> loaded = new HashSet<NativeLibrary>();
     private static final Logger log = LoggerFactory.getLogger(NativeLibrary.class);
@@ -25,13 +25,13 @@ public final class NativeLibrary {
 
     private final String resourceName;
 
-    private NativeLibrary(String resourceName) {
+    protected NativeLibrary(String resourceName) {
         this.resourceName = checkNotNull(resourceName);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof NativeLibrary)) {
+        if (null == obj || obj.getClass() != this.getClass()) {
             return false;
         }
         return resourceName.equals(((NativeLibrary) obj).resourceName);
@@ -52,16 +52,11 @@ public final class NativeLibrary {
     /**
      * Try to load the specified library.
      * 
-     * @param resourceName
-     *            the resource name of the library
-     * 
      * @return {@code true} if the library has been loaded ({@code false} may
      *         indicate that the library had been added before.
      */
-    public synchronized static boolean load(String resourceName) {
-        NativeLibrary result = new NativeLibrary(resourceName);
-
-        if (loaded.contains(result)) {
+    protected synchronized boolean load() {
+        if (loaded.contains(this)) {
             log.warn("Trying to load an existing library again ({})", resourceName);
             return false;
         }
@@ -69,13 +64,13 @@ public final class NativeLibrary {
         if (!settingsDir.exists() && !settingsDir.mkdir()) {
             throw new RuntimeException("Could not create temp dir " + settingsDir);
         }
-        
+
         try {
             File targetFile = new File(settingsDir, resourceName);
             log.info("Copying dll to {}", targetFile);
             copy(newInputStreamSupplier(NativeLibrary.class.getResource(resourceName)), targetFile);
             System.load(targetFile.getPath());
-            loaded.add(result);
+            loaded.add(this);
             return true;
         } catch (IOException ex) {
             throw new RuntimeException(ex);
