@@ -8,7 +8,7 @@
  * Contributors:
  * 	compeople AG (Stefan Liebig) - initial API and implementation
  *******************************************************************************/
-package de.compeople.commons.net.proxy.manual;
+package de.compeople.commons.net.proxy;
 
 import java.io.IOException;
 import java.net.Proxy;
@@ -20,8 +20,6 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import de.compeople.commons.net.proxy.util.ProxySelectorUtils;
 
 /**
  * A proxy selector for a �manual� specified proxy.

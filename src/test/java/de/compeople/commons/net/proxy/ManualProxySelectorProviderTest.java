@@ -8,7 +8,7 @@
  * Contributors:
  * 	compeople AG (Stefan Liebig) - initial API and implementation
  *******************************************************************************/
-package de.compeople.commons.net.proxy.manual;
+package de.compeople.commons.net.proxy;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -22,6 +22,7 @@ import java.util.List;
 import org.junit.Before;
 
 import de.compeople.commons.net.proxy.CompoundProxySelector;
+import de.compeople.commons.net.proxy.ManualProxySelectorProvider;
 
 /**
  * Nomen est omen!

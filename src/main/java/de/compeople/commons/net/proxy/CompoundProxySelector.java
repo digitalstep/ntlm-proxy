@@ -24,15 +24,13 @@ import java.util.TreeMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.compeople.commons.net.proxy.util.ProxySelectorUtils;
-
 /**
  * A proxy selector that collects proxies from various other proxy selectors and
  * uses all of their proxies for selection.
  */
 public class CompoundProxySelector extends ProxySelector {
 
-    private TreeMap<Integer, ProxySelector> proxySelectors = new TreeMap<Integer, ProxySelector>();
+    private Map<Integer, ProxySelector> proxySelectors = new TreeMap<Integer, ProxySelector>();
     private ProxySelector savedProxySelector = null;
     private Map<Proxy, List<ProxySelector>> proxyToProxySelectors = new HashMap<Proxy, List<ProxySelector>>();
 
@@ -45,7 +43,6 @@ public class CompoundProxySelector extends ProxySelector {
         super();
         savedProxySelector = ProxySelector.getDefault();
         if (savedProxySelector != null) {
-            // plus the original default selector at the end
             addOrReplace(Integer.MAX_VALUE, savedProxySelector);
         }
     }
@@ -57,37 +54,6 @@ public class CompoundProxySelector extends ProxySelector {
      */
     public ProxySelector addOrReplace(int priority, ProxySelector proxySelector) {
         return proxySelectors.put(priority, proxySelector);
-    }
-
-    /**
-     * Installs this compound proxy selector.
-     */
-    public void install() {
-        if (log.isInfoEnabled()) {
-            log.info("Installing compound proxy selector with:");
-            for (Map.Entry<Integer, ProxySelector> entry : proxySelectors.entrySet()) {
-                log.info(" - prio " + entry.getKey() + " " + entry.getValue());
-            }
-        }
-        ProxySelector.setDefault(this);
-    }
-
-    /**
-     * Deinstall this proxy selector and install the original proxy selector.
-     */
-    public void deinstall() {
-        if (savedProxySelector != null) {
-            ProxySelector.setDefault(savedProxySelector);
-        } else {
-            try {
-                Class<?> c = Class.forName("sun.net.spi.DefaultProxySelector");
-                if (c != null && ProxySelector.class.isAssignableFrom(c)) {
-                    ProxySelector.setDefault((ProxySelector) c.newInstance());
-                }
-            } catch (Throwable t) {
-                ProxySelector.setDefault(null);
-            }
-        }
     }
 
     /**

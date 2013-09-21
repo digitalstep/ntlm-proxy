@@ -8,7 +8,7 @@
  * Contributors:
  * 	compeople AG (Stefan Liebig) - initial API and implementation
  *******************************************************************************/
-package de.compeople.commons.net.proxy.manual;
+package de.compeople.commons.net.proxy;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
 
@@ -20,9 +20,6 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import de.compeople.commons.net.proxy.CompoundProxySelector;
-import de.compeople.commons.net.proxy.util.ProxySelectorUtils;
 
 /**
  * Provide the manual proxy settings if given.

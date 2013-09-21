@@ -15,7 +15,6 @@ import java.io.File;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.compeople.commons.net.proxy.manual.ManualProxySelectorProvider;
 import de.compeople.commons.net.proxy.win32.WinProxySelectorProvider;
 
 /**

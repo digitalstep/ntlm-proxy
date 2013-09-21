@@ -10,6 +10,9 @@
  *******************************************************************************/
 package de.compeople.commons.net.proxy.win32;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Strings.nullToEmpty;
+
 import java.net.Proxy;
 import java.net.URI;
 import java.util.ArrayList;
@@ -17,8 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import de.compeople.commons.net.proxy.util.ProxyBypass;
-import de.compeople.commons.net.proxy.util.ProxySelectorUtils;
+import de.compeople.commons.net.proxy.ProxySelectorUtils;
 import de.compeople.commons.net.winhttp.WinHttpCurrentUserIEProxyConfig;
 
 /**
@@ -26,35 +28,32 @@ import de.compeople.commons.net.winhttp.WinHttpCurrentUserIEProxyConfig;
  */
 public class WinHttpConfig {
 
-	private List<Proxy> universalProxies = new ArrayList<Proxy>();
-	private Map<String, List<Proxy>> protocolSpecificProxies = new HashMap<String, List<Proxy>>();
-	private ProxyBypass proxyBypass;
+	private final List<Proxy> universalProxies = new ArrayList<Proxy>();
+	private final Map<String, List<Proxy>> protocolSpecificProxies = new HashMap<String, List<Proxy>>();
+	private final ProxyBypass proxyBypass;
 
 	/**
 	 * @param proxyConfig
 	 */
-	public WinHttpConfig( WinHttpCurrentUserIEProxyConfig proxyConfig ) {
-		ProxySelectorUtils.fillProxyLists( proxyConfig.getProxy(), universalProxies, protocolSpecificProxies );
-		proxyBypass = new ProxyBypass( proxyConfig.getProxyBypass() );
-	}
-
-	public boolean useUniversalProxy() {
-		return !universalProxies.isEmpty();
+	public WinHttpConfig(WinHttpCurrentUserIEProxyConfig proxyConfig) {
+		ProxySelectorUtils.fillProxyLists(proxyConfig.getProxy(), universalProxies, protocolSpecificProxies);
+		proxyBypass = new ProxyBypass(nullToEmpty(proxyConfig.getProxyBypass()));
 	}
 
 	public boolean useProtocolSpecificProxies() {
 		return !protocolSpecificProxies.isEmpty();
 	}
 
-	public List<Proxy> getProtocolSpecificProxies( URI uri ) {
-		return protocolSpecificProxies.get( uri.getScheme() );
+	public List<Proxy> getProtocolSpecificProxies(URI uri) {
+		return protocolSpecificProxies.get(uri.getScheme());
 	}
 
 	public List<Proxy> getUniversalProxies() {
 		return universalProxies;
 	}
 
-	public boolean bypassProxyFor( URI uri ) {
-		return proxyBypass.bypassProxyFor( uri );
+	public boolean bypassProxyFor(URI uri) {
+		return proxyBypass.bypassProxyFor(checkNotNull(uri));
 	}
+
 }

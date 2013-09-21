@@ -23,9 +23,7 @@ import java.util.logging.Logger;
 
 import com.google.common.base.Strings;
 
-import de.compeople.commons.net.proxy.util.ProxyBypass;
-import de.compeople.commons.net.proxy.util.ProxySelectorPACUtils;
-import de.compeople.commons.net.proxy.util.ProxySelectorUtils;
+import de.compeople.commons.net.proxy.ProxySelectorUtils;
 import de.compeople.commons.net.winhttp.WinHttp;
 import de.compeople.commons.net.winhttp.WinHttpAutoProxyOptions;
 import de.compeople.commons.net.winhttp.WinHttpCurrentUserIEProxyConfig;

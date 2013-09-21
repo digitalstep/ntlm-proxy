@@ -8,7 +8,7 @@
  * Contributors:
  * 	compeople AG (Stefan Liebig) - initial API and implementation
  *******************************************************************************/
-package de.compeople.commons.net.proxy.util;
+package de.compeople.commons.net.proxy.win32;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
 
@@ -23,6 +23,8 @@ import java.util.Map;
 import java.util.Scanner;
 
 import com.google.common.base.Strings;
+
+import de.compeople.commons.net.proxy.ProxySelectorUtils;
 
 /**
  * Helper for PAC support
