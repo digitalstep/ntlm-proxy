@@ -40,6 +40,7 @@ import static java.lang.Boolean.FALSE;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 
 import java.awt.AWTException;
+import java.awt.CheckboxMenuItem;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
 import java.awt.SystemTray;
@@ -47,8 +48,11 @@ import java.awt.TrayIcon;
 import java.awt.TrayIcon.MessageType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.net.Proxy;
 import java.net.URI;
+import java.util.prefs.Preferences;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -71,6 +75,8 @@ public class TrayIconBuilder {
     }
 
     private final LogWindow logWindow;
+    private final Preferences prefs = Preferences.userRoot().node(getClass().getName());
+
     private final TrayIcon trayIcon;
 
     public TrayIconBuilder() {
@@ -107,37 +113,11 @@ public class TrayIconBuilder {
             @Override
             protected void onGet(URI uri, Proxy proxy) {
                 super.onGet(uri, proxy);
-                trayIcon.displayMessage("GET via " + proxy.address(), uri.toString(), MessageType.INFO);
+                if (isShowBubble()) {
+                    trayIcon.displayMessage("GET via " + proxy.address(), uri.toString(), MessageType.INFO);
+                }
             }
         });
-    }
-
-    private TrayIcon trayIcon(final LogWindow logWindow) {
-        final PopupMenu popup = new PopupMenu();
-
-        final ActionListener listener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                logWindow.open();
-            }
-        };
-        popup.add(showLog(listener));
-        popup.addSeparator();
-        popup.add(aboutItem());
-        popup.add(exitItem());
-
-        final TrayIcon trayIcon = new TrayIcon((new ImageIcon(getClass().getResource("/tray.png"), "tray icon")).getImage());
-        trayIcon.setPopupMenu(popup);
-        trayIcon.setImageAutoSize(true);
-        trayIcon.addActionListener(listener);
-
-        return trayIcon;
-    }
-
-    private MenuItem showLog(final ActionListener listener) {
-        final MenuItem menuItem = new MenuItem("Show Log");
-        menuItem.addActionListener(listener);
-        return menuItem;
     }
 
     private MenuItem aboutItem() {
@@ -162,5 +142,54 @@ public class TrayIconBuilder {
             }
         });
         return menuItem;
+    }
+
+    private boolean isShowBubble() {
+        return prefs.getBoolean("showBubble", true);
+    }
+
+    private void setShowBubble(boolean showBubble) {
+        prefs.putBoolean("showBubble", showBubble);
+    }
+
+    private MenuItem showBubble() {
+        final CheckboxMenuItem menuItem = new CheckboxMenuItem("Show Bubbles");
+        menuItem.setState(isShowBubble());
+        menuItem.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                setShowBubble(menuItem.getState());
+            }
+        });
+        return menuItem;
+    }
+
+    private MenuItem showLog(final ActionListener listener) {
+        final MenuItem menuItem = new MenuItem("Show Log");
+        menuItem.addActionListener(listener);
+        return menuItem;
+    }
+
+    private TrayIcon trayIcon(final LogWindow logWindow) {
+        final PopupMenu popup = new PopupMenu();
+
+        final ActionListener openLogWindow = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                logWindow.open();
+            }
+        };
+        popup.add(showLog(openLogWindow));
+        popup.add(showBubble());
+        popup.addSeparator();
+        popup.add(aboutItem());
+        popup.add(exitItem());
+
+        final TrayIcon trayIcon = new TrayIcon((new ImageIcon(getClass().getResource("/tray.png"), "tray icon")).getImage());
+        trayIcon.setPopupMenu(popup);
+        trayIcon.setImageAutoSize(true);
+        trayIcon.addActionListener(openLogWindow);
+
+        return trayIcon;
     }
 }
