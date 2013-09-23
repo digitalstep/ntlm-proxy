@@ -4,7 +4,7 @@
 	<groupId>de.digitalstep.ntlmproxy</groupId>
 	<artifactId>ntlm-proxy</artifactId>
 	<packaging>jar</packaging>
-	<version>0.4.1-SNAPSHOT</version>
+	<version>0.4.1</version>
 	<name>NTLM Proxy</name>
 	<url>http://github.com/digitalstep/ntlm-proxy</url>
 
