@@ -10,8 +10,6 @@
  *******************************************************************************/
 package de.compeople.commons.net.proxy.win32;
 
-import static com.google.common.base.Strings.isNullOrEmpty;
-
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.SocketAddress;
@@ -78,7 +76,7 @@ public final class ProxySelectorPACUtils {
 
 	private static Proxy getProxy( String pacProxy ) {
 
-		if ( isNullOrEmpty(pacProxy) ) {
+		if ( Strings.isNullOrEmpty(pacProxy) ) {
 			return Proxy.NO_PROXY;
 		}
 

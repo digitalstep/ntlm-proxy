@@ -10,8 +10,6 @@
  *******************************************************************************/
 package de.compeople.commons.net.proxy;
 
-import static com.google.common.base.Strings.isNullOrEmpty;
-
 import java.net.Proxy;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +18,8 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.common.base.Strings;
 
 /**
  * Provide the manual proxy settings if given.
@@ -46,7 +46,7 @@ public final class ManualProxySelectorProvider {
      */
     public static void appendTo(CompoundProxySelector compoundProxySelector) {
         String proxyList = System.getProperty(MANUAL_PROXY_SETTINGS_PROPERTY);
-        if (!isNullOrEmpty(proxyList)) {
+        if (!Strings.isNullOrEmpty(proxyList)) {
             List<Proxy> universalProxies = new ArrayList<Proxy>();
             Map<String, List<Proxy>> protocolSpecificProxies = new HashMap<String, List<Proxy>>();
 
