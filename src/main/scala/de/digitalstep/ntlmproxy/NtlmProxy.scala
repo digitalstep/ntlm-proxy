@@ -5,6 +5,7 @@ import de.digitalstep.ntlmproxy.ui.TrayIconBuilder
 import java.net.ServerSocket
 import com.typesafe.scalalogging.slf4j.Logging
 import java.util.concurrent.Executors
+import de.digitalstep.ntlmproxy.ui.SystemTrayBuilder
 
 object NtlmProxy extends Logging {
 	
@@ -13,7 +14,7 @@ object NtlmProxy extends Logging {
 	def main(args: Array[String]) {
 		System.setProperty("java.net.useSystemProxies", "true")
 
-		val listener = new TrayIconBuilder().build()
+		val listener = SystemTrayBuilder() 
 		val port = Integer.parseInt(args(0))
 		val server = new ServerSocket(port)
 		logger.info(s"Proxy listening on port ${port}")
