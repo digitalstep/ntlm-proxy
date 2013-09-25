@@ -35,7 +35,8 @@ package de.digitalstep.ntlmproxy.ui;
  * TrayIconDemo.java
  */
 
-import static de.digitalstep.ntlmproxy.ui.ApplicationProperties.applicationProperties;
+import static de.digitalstep.ntlmproxy.ui.ApplicationProperties.applicationName;
+import static de.digitalstep.ntlmproxy.ui.ApplicationProperties.applicationVersion;
 import static java.lang.Boolean.FALSE;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 
@@ -125,8 +126,8 @@ public class TrayIconBuilder {
         menuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null,
-                        String.format("Version %s", applicationProperties().getApplicationVersion()),
-                        applicationProperties().getApplicationName(),
+                        String.format("Version %s", applicationVersion()),
+                        applicationName(),
                         INFORMATION_MESSAGE);
             }
         });

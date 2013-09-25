@@ -16,7 +16,7 @@ public class HttpParser extends InputStream {
     private byte[] buffer = new byte[4096];
     private long contentLength;
     private String contentType;
-    private NameValuePair[] headers;
+    private Header[] headers;
     private int index;
     private final InputStream delegate;
     private String method, uri, protocol;
@@ -37,7 +37,7 @@ public class HttpParser extends InputStream {
         return contentType;
     }
 
-    public NameValuePair[] getHeaders() {
+    public Header[] getHeaders() {
         return headers;
     }
 
@@ -70,7 +70,7 @@ public class HttpParser extends InputStream {
         } catch (ArrayIndexOutOfBoundsException ex) {
             throw new IOException("Bad HTTP header", ex);
         }
-        this.headers = new NameValuePair[headerLines.length - 1];
+        this.headers = new Header[headerLines.length - 1];
         for (int i = 1; i < headerLines.length; i++) {
             String[] h = headerLines[i].split(": ", 2);
             if (h.length != 2) {
@@ -87,7 +87,7 @@ public class HttpParser extends InputStream {
                     throw new IOException("Cannot parse Content-Length", e);
                 }
             }
-            this.headers[i - 1] = new NameValuePair(name, value);
+            this.headers[i - 1] = new Header(name, value);
         }
         return true;
     }

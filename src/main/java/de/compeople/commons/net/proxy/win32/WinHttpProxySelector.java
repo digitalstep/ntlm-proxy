@@ -10,6 +10,8 @@
  *******************************************************************************/
 package de.compeople.commons.net.proxy.win32;
 
+import static de.digitalstep.ntlmproxy.net.proxy.Helper.proxyType;
+
 import java.io.IOException;
 import java.net.Proxy;
 import java.net.ProxySelector;
@@ -28,6 +30,7 @@ import de.compeople.commons.net.winhttp.WinHttp;
 import de.compeople.commons.net.winhttp.WinHttpAutoProxyOptions;
 import de.compeople.commons.net.winhttp.WinHttpCurrentUserIEProxyConfig;
 import de.compeople.commons.net.winhttp.WinHttpProxyInfo;
+import de.digitalstep.ntlmproxy.net.proxy.Helper;
 
 /**
  * ProxySelector that gets its settings from the
@@ -150,7 +153,7 @@ public class WinHttpProxySelector extends ProxySelector {
         if (uri == null) {
             return;
         }
-        failed.add(ProxySelectorUtils.createProxy(uri.getScheme(), sa));
+        failed.add(Helper.create(proxyType(uri.getScheme()), sa));
     }
 
     protected List<Proxy> pacSelect(int hHttpSession, URI uri) {

@@ -1,7 +1,6 @@
 package de.digitalstep.ntlmproxy;
 
 import java.io.ByteArrayInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -53,9 +52,9 @@ class Handler implements Runnable {
             HttpURLConnection connection = (HttpURLConnection) uri.toURL().openConnection();
             connection.setRequestMethod(parser.getMethod());
             connection.setInstanceFollowRedirects(false);
-            for (NameValuePair header : parser.getHeaders()) {
-                if (!stripHeadersIn.contains(header.getName())) {
-                    connection.addRequestProperty(header.getName(), header.getValue());
+            for (Header header : parser.getHeaders()) {
+                if (!stripHeadersIn.contains(header.name())) {
+                    connection.addRequestProperty(header.name(), header.value());
                 }
             }
 
@@ -71,8 +70,8 @@ class Handler implements Runnable {
             }
 
             for (int index = 0; index < 1; index++) {
-                NameValuePair header = new NameValuePair(connection.getHeaderFieldKey(index), connection.getHeaderField(index));
-                if (!stripHeadersOut.contains(header.getName())) {
+                Header header = new Header(connection.getHeaderFieldKey(index), connection.getHeaderField(index));
+                if (!stripHeadersOut.contains(header.name())) {
                     out.write((header.toString() + "\r\n").getBytes());
                     log.debug("Wrote header {}", header);
                 }

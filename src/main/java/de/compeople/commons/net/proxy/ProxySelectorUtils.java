@@ -12,7 +12,6 @@ package de.compeople.commons.net.proxy;
 
 import java.net.InetSocketAddress;
 import java.net.Proxy;
-import java.net.SocketAddress;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -57,7 +56,7 @@ public final class ProxySelectorUtils {
 	 * @return an empty immutable <code>List&lt;Proxy&gt;</code>.
 	 */
 	public static List<Proxy> getEmptyProxyList() {
-		return emptyProxyList;
+	    return emptyProxyList;
 	}
 
 	/**
@@ -172,16 +171,6 @@ public final class ProxySelectorUtils {
 		} else {
 			return Proxy.Type.HTTP;
 		}
-	}
-
-	/**
-	 * @param scheme
-	 * @param sa
-	 * @return
-	 */
-	public static Proxy createProxy(String scheme, SocketAddress sa) {
-		Proxy.Type type = resolveProxyType(scheme);
-		return new Proxy(type, sa);
 	}
 
 }

@@ -24,6 +24,8 @@ import java.util.TreeMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.digitalstep.ntlmproxy.net.proxy.Helper;
+
 /**
  * A proxy selector that collects proxies from various other proxy selectors and
  * uses all of their proxies for selection.
@@ -125,7 +127,7 @@ public class CompoundProxySelector extends ProxySelector {
     @Override
     public void connectFailed(URI uri, SocketAddress sa, IOException ioe) {
         log.warn("proxy '" + sa + "' not available for url '" + uri + "'.", ioe);
-        List<ProxySelector> selectors = proxyToProxySelectors.get(ProxySelectorUtils.createProxy(uri.getScheme(), sa));
+        List<ProxySelector> selectors = proxyToProxySelectors.get(Helper.create(Helper.proxyType(uri.getScheme()), sa));
         if (selectors != null) {
             for (ProxySelector selector : selectors) {
                 selector.connectFailed(uri, sa, ioe);
