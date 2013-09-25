@@ -31,10 +31,6 @@
 
 package de.digitalstep.ntlmproxy.ui;
 
-/*
- * TrayIconDemo.java
- */
-
 import static de.digitalstep.ntlmproxy.ui.ApplicationProperties.applicationName;
 import static de.digitalstep.ntlmproxy.ui.ApplicationProperties.applicationVersion;
 import static java.lang.Boolean.FALSE;
@@ -81,10 +77,14 @@ public class TrayIconBuilder {
     private final TrayIcon trayIcon;
 
     public TrayIconBuilder() {
-        this.logWindow = new LogWindow();
-        this.trayIcon = trayIcon(logWindow);
+        this(new LogWindow());
     }
-
+    
+    public TrayIconBuilder(LogWindow logWindow) {
+        this.logWindow = logWindow;
+        this.trayIcon = trayIcon();
+    }
+    
     public Optional<HandlerListener> build() {
         if (!SystemTray.isSupported()) {
             log.info("SystemTray is not supported");
@@ -171,7 +171,7 @@ public class TrayIconBuilder {
         return menuItem;
     }
 
-    private TrayIcon trayIcon(final LogWindow logWindow) {
+    private TrayIcon trayIcon() {
         final PopupMenu popup = new PopupMenu();
 
         final ActionListener openLogWindow = new ActionListener() {
