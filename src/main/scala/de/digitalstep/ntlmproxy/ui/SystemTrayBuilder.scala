@@ -10,16 +10,22 @@ object SystemTrayBuilder extends Logging {
 
 	def apply(): Optional[HandlerListener] =
 		SystemTray.isSupported() match {
+
 			case false ⇒
 				logger.info("SystemTray is not supported")
 				Optional.absent()
+
 			case true ⇒
-				val logWindow = new LogWindow
-				logWindow.getConsole().redirectOut()
 				UIManager setLookAndFeel "com.sun.java.swing.plaf.windows.WindowsLookAndFeel"
 				UIManager put ("swing.boldMetal", false)
 
-				new TrayIconBuilder(logWindow).build
+				val logWindow = new LogWindow
+				logWindow.getConsole().redirectOut()
+				
+				val builder = new TrayIconBuilder
+				val trayIcon = builder.trayIcon(logWindow)
+
+				builder.build(trayIcon)
 		}
 
 }

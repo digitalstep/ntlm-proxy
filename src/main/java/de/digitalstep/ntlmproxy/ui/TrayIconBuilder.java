@@ -65,21 +65,9 @@ public class TrayIconBuilder {
 
     private static final Logger log = LoggerFactory.getLogger(TrayIconBuilder.class);
 
-    public static void main(String[] args) {
-        new TrayIconBuilder(new LogWindow()).build();
-    }
-
-    private final LogWindow logWindow;
     private final Preferences prefs = Preferences.userRoot().node(getClass().getName());
 
-    private final TrayIcon trayIcon;
-
-    public TrayIconBuilder(LogWindow logWindow) {
-        this.logWindow = logWindow;
-        this.trayIcon = trayIcon();
-    }
-    
-    public Optional<HandlerListener> build() {
+    public Optional<HandlerListener> build(final TrayIcon trayIcon) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {
@@ -115,7 +103,7 @@ public class TrayIconBuilder {
         return menuItem;
     }
 
-    private MenuItem exitItem() {
+    private MenuItem exitItem(final TrayIcon trayIcon) {
         MenuItem menuItem = new MenuItem("Exit");
         menuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -152,7 +140,9 @@ public class TrayIconBuilder {
         return menuItem;
     }
 
-    private TrayIcon trayIcon() {
+    public TrayIcon trayIcon(final LogWindow logWindow) {
+        final TrayIcon trayIcon = new TrayIcon((new ImageIcon(getClass().getResource("/tray.png"), "tray icon")).getImage());
+        
         final PopupMenu popup = new PopupMenu();
 
         final ActionListener openLogWindow = new ActionListener() {
@@ -165,9 +155,8 @@ public class TrayIconBuilder {
         popup.add(showBubble());
         popup.addSeparator();
         popup.add(aboutItem());
-        popup.add(exitItem());
+        popup.add(exitItem(trayIcon));
 
-        final TrayIcon trayIcon = new TrayIcon((new ImageIcon(getClass().getResource("/tray.png"), "tray icon")).getImage());
         trayIcon.setPopupMenu(popup);
         trayIcon.setImageAutoSize(true);
         trayIcon.addActionListener(openLogWindow);
