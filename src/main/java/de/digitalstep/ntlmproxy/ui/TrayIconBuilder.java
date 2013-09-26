@@ -33,7 +33,6 @@ package de.digitalstep.ntlmproxy.ui;
 
 import static de.digitalstep.ntlmproxy.ui.ApplicationProperties.applicationName;
 import static de.digitalstep.ntlmproxy.ui.ApplicationProperties.applicationVersion;
-import static java.lang.Boolean.FALSE;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 
 import java.awt.AWTException;
@@ -54,7 +53,6 @@ import java.util.prefs.Preferences;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,7 +66,7 @@ public class TrayIconBuilder {
     private static final Logger log = LoggerFactory.getLogger(TrayIconBuilder.class);
 
     public static void main(String[] args) {
-        new TrayIconBuilder().build();
+        new TrayIconBuilder(new LogWindow()).build();
     }
 
     private final LogWindow logWindow;
@@ -76,29 +74,12 @@ public class TrayIconBuilder {
 
     private final TrayIcon trayIcon;
 
-    public TrayIconBuilder() {
-        this(new LogWindow());
-    }
-    
     public TrayIconBuilder(LogWindow logWindow) {
         this.logWindow = logWindow;
         this.trayIcon = trayIcon();
     }
     
     public Optional<HandlerListener> build() {
-        if (!SystemTray.isSupported()) {
-            log.info("SystemTray is not supported");
-            return Optional.absent();
-        }
-
-        logWindow.getConsole().redirectOut();
-
-        try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-        } catch (Exception ex) {
-            throw new RuntimeException(ex);
-        }
-        UIManager.put("swing.boldMetal", FALSE);
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {
