@@ -9,9 +9,10 @@ import org.apache.http.client.fluent.Request;
 public class CommonsHttpClientTest {
 
     public static void main(String[] args) throws IOException {
+        System.setProperty("http.proxyHost", "someproxy");
+        System.setProperty("http.proxyPort", "80");
         Content content = Request
                 .Get("http://www.google.de")
-                .viaProxy(new HttpHost("someproxy", 80))
                 .execute()
                 .returnContent();
 
