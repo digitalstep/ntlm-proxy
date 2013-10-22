@@ -10,7 +10,7 @@ object HttpConstants {
 
 class HttpServer(port: Int) extends Actor {
 
-	val state = IO.IterateeRef.Map.async[IO.Handle]()(context.dispatcher)
+  val state = IO.IterateeRef.Map.async[IO.Handle]()(context.dispatcher)
 
 	override def preStart {
 		IOManager(context.system) listen new InetSocketAddress(port)

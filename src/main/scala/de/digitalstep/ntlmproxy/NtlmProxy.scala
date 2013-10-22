@@ -20,7 +20,7 @@ object NtlmProxy extends Logging {
 		logger.info(s"Proxy listening on port ${port}")
 		while (true) {
 			val socket = server.accept()
-			EXECUTOR execute new Handler(socket, listener)
+			EXECUTOR.execute(new Handler(socket, listener))
 		}
 		
 	}

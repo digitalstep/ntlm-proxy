@@ -7,25 +7,29 @@ import de.digitalstep.ntlmproxy.HandlerListener
 import javax.swing.UIManager
 
 object SystemTrayBuilder extends Logging {
+	
+	import javax.swing.UIManager.{
+		getSystemLookAndFeelClassName,
+		setLookAndFeel,
+		put ⇒ uiOption
+	}
 
 	def apply(): Optional[HandlerListener] =
 		SystemTray.isSupported() match {
-
-			case false ⇒
-				logger.info("SystemTray is not supported")
-				Optional.absent()
-
 			case true ⇒
-				UIManager setLookAndFeel "com.sun.java.swing.plaf.windows.WindowsLookAndFeel"
-				UIManager put ("swing.boldMetal", false)
+				setLookAndFeel(getSystemLookAndFeelClassName)
+				uiOption("swing.boldMetal", false)
 
 				val logWindow = new LogWindow
 				logWindow.getConsole().redirectOut()
-				
+
 				val builder = new TrayIconBuilder
 				val trayIcon = builder.trayIcon(logWindow)
 
 				builder.build(trayIcon)
+			case false ⇒
+				logger.info("SystemTray is not supported")
+				Optional.absent()
 		}
 
 }
