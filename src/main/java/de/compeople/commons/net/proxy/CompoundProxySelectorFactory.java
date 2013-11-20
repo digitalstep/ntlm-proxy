@@ -31,7 +31,7 @@ public class CompoundProxySelectorFactory {
 	 * @return
 	 * @throws IllegalStateException if no selector is available or selector instantiation failed.
 	 */
-	public static CompoundProxySelector getProxySelector() throws IllegalStateException {
+	public static CompoundProxySelector getProxySelector() {
 
 		CompoundProxySelector compoundProxySelector = new CompoundProxySelector();
 

@@ -8,9 +8,11 @@
  * Contributors:
  * 	compeople AG (Stefan Liebig) - initial API and implementation
  *******************************************************************************/
-package de.compeople.commons.net.winhttp;
+package de.digitalstep.ntlmproxy.nativelib;
 
-import de.digitalstep.ntlmproxy.nativelib.NativeLibrary;
+import de.compeople.commons.net.winhttp.WinHttpAutoProxyOptions;
+import de.compeople.commons.net.winhttp.WinHttpCurrentUserIEProxyConfig;
+import de.compeople.commons.net.winhttp.WinHttpProxyInfo;
 
 /**
  * This is the Win32 WinHttp wrapper. (Not yet complete, but offers what we

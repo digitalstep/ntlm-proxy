@@ -26,17 +26,17 @@ import java.util.logging.Logger;
 import com.google.common.base.Strings;
 
 import de.compeople.commons.net.proxy.ProxySelectorUtils;
-import de.compeople.commons.net.winhttp.WinHttp;
 import de.compeople.commons.net.winhttp.WinHttpAutoProxyOptions;
 import de.compeople.commons.net.winhttp.WinHttpCurrentUserIEProxyConfig;
 import de.compeople.commons.net.winhttp.WinHttpProxyInfo;
+import de.digitalstep.ntlmproxy.nativelib.WinHttp;
 import de.digitalstep.ntlmproxy.net.proxy.Helper;
 
 /**
  * ProxySelector that gets its settings from the
  * "internet options >> connection settings"
  */
-public class WinHttpProxySelector extends ProxySelector {
+class WinHttpProxySelector extends ProxySelector {
     
     @SuppressWarnings("unused")
     private static final WinHttp WIN_HTTP = WinHttp.initialize();

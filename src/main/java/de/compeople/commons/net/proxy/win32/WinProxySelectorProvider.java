@@ -12,17 +12,12 @@ package de.compeople.commons.net.proxy.win32;
 
 import java.net.ProxySelector;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import de.compeople.commons.net.proxy.CompoundProxySelector;
 
 /**
  * Populate all possible win proxy selectors.
  */
 public final class WinProxySelectorProvider {
-
-    private static final Logger log = LoggerFactory.getLogger(WinProxySelectorProvider.class);
 
     private WinProxySelectorProvider() {
         // utility class

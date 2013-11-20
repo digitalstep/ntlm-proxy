@@ -27,7 +27,7 @@ import de.compeople.commons.net.proxy.ProxySelectorUtils;
 /**
  * Helper for PAC support
  */
-public final class ProxySelectorPACUtils {
+final class ProxySelectorPACUtils {
 
 	private static final Map<String, Proxy.Type> PROXY_TYPE_MAP;
 

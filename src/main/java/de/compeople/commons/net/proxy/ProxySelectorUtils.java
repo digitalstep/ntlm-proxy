@@ -80,8 +80,7 @@ public final class ProxySelectorUtils {
 		}
 	}
 
-	private static void createProxy(final String proxyDefinition, List<Proxy> universalProxies,
-			Map<String, List<Proxy>> protocolSpecificProxies) {
+	private static void createProxy(final String proxyDefinition, List<Proxy> universalProxies, Map<String, List<Proxy>> protocolSpecificProxies) {
 		String protocol = null;
 		String host = null;
 		int port = 0;

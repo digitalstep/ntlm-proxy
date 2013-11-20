@@ -26,7 +26,7 @@ import de.compeople.commons.net.winhttp.WinHttpCurrentUserIEProxyConfig;
 /**
  * Helper
  */
-public class WinHttpConfig {
+class WinHttpConfig {
 
 	private final List<Proxy> universalProxies = new ArrayList<Proxy>();
 	private final Map<String, List<Proxy>> protocolSpecificProxies = new HashMap<String, List<Proxy>>();

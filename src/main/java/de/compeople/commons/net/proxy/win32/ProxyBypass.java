@@ -33,67 +33,33 @@ import java.util.regex.Pattern;
  */
 class ProxyBypass {
 
-	final String proxyBypass;
-	private final Pattern proxyBypassPattern;
+    private final String proxyBypass;
+    private final Pattern proxyBypassPattern;
 
-	private final static String BYPASS_LOCAL_ADDESSES_TOKEN = "<local>";
+    private final static String BYPASS_LOCAL_ADDESSES_TOKEN = "<local>";
 
-	/**
-	 * Create a ProxyBypass instance from the proxy bypass list string.
-	 * 
-	 * @param proxyBypass
-	 */
-	public ProxyBypass(String proxyBypass) {
-		this.proxyBypass = nullToEmpty(proxyBypass);
+    /**
+     * Create a ProxyBypass instance from the proxy bypass list string.
+     * 
+     * @param proxyBypass
+     */
+    public ProxyBypass(String proxyBypass) {
+        this.proxyBypass = nullToEmpty(proxyBypass);
 
-		if (proxyBypass != null) {
-			String regExp = proxyBypass.replace(";", "|").replace(".", "\\.").replace("*", ".*");
-			this.proxyBypassPattern = Pattern.compile(regExp);
-		} else {
-			this.proxyBypassPattern = Pattern.compile("");
-		}
-	}
+        String regExp = proxyBypass.replace(";", "|").replace(".", "\\.").replace("*", ".*");
+        this.proxyBypassPattern = Pattern.compile(regExp);
+    }
 
-	/**
-	 * Check whether the given uri should bypass the proxy.
-	 * 
-	 * @param uri
-	 * @return
-	 */
-	public boolean bypassProxyFor(URI uri) {
-		assert uri != null;
-
-		final String host = uri.getHost();
-		if (host != null) {
-			return (isLocal(host) && isBypassLocalAddresses(proxyBypass)) || isInBypassList(host);
-		} else {
-			return false;
-		}
-	}
-
-	/**
-	 * @param proxyBypass
-	 * @param uri
-	 * @return
-	 */
-	boolean isInBypassList(String host) {
-		return proxyBypassPattern.matcher(host).matches();
-	}
-
-	/**
-	 * @param uri
-	 * @return
-	 */
-	static boolean isLocal(String host) {
-		return !host.contains(".");
-	}
-
-	/**
-	 * @param addressListString
-	 * @return
-	 */
-	static boolean isBypassLocalAddresses(String proxyBypass) {
-		return proxyBypass.contains(BYPASS_LOCAL_ADDESSES_TOKEN);
-	}
+    /**
+     * Check whether the given uri should bypass the proxy.
+     * 
+     * @param uri
+     * @return
+     */
+    public boolean bypassProxyFor(URI uri) {
+        return (uri.getHost() != null)
+                && (!uri.getHost().contains(".") && proxyBypass.contains(BYPASS_LOCAL_ADDESSES_TOKEN))
+                || proxyBypassPattern.matcher(uri.getHost()).matches();
+    }
 
 }
